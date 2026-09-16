@@ -17,6 +17,9 @@
 #define GPIOA_PUPDR (*(volatile unsigned int *)(GPIOB_BASE + 0x0C))
 #define RCC_IOPENR  (*(volatile unsigned int *)0x40021034)
 
+int player_A = 1;
+int player_B = 2;
+
 int portA_board[9] = {
 		9, 10, 15,
 		6 ,7 , 8,
@@ -28,7 +31,8 @@ int portB_board[9] = {
 		4 , 5, 9
 			};
 int player_board[9] ={0};
-		
+void reset(){
+}
 void turnA (int p){
 	// turn on for A
 	GPIOA_MODER &= ~(3<<p*2); // Clear Led at p
@@ -43,48 +47,33 @@ void turnB (int p){
 			GPIOB_ODR |= (1<<p);
 }
 
+
 // player board code
 int main(void) {
 	// For GPIOA
 	RCC_IOPENR |= (1<<0); // enable GPIO
 	// For GPIOB
 	RCC_IOPENR |= (1<<1); // enable GPIO
+while (game_on){
 
-	// Difference between player 1 & 2
-	for (int i = 0; i < 9; i++) {
+// HORIZONTAL CONDITIONS - PLAYER A
+// If player A == 9, 10, 15 player A wins
 
-	    if (player_board[i] == 1) {
-	        // Player A owns this position
-	    }
+// If player A == 6, 7, 8 player A wins
 
-	    else if (player_board[i] == 2) {
-	        // Player B owns this position
-	    }
-	}
+// If player A == 5, 12, 11 player A wins
 
+// VERTICAL  CONDITIONS - PLAYER A
+// If player A == 9, 6, 5 player A wins
 
+// If player A == 10, 7, 12 player A wins
 
+// If player A == 15, 8, 11 player A wins
 
-	// turn on pa15
-	GPIOA_MODER &= ~(3<<15*2); // Clear Led P15
-	GPIOA_MODER |= (1<<(15*2)); // Set P15 to output
-
-	GPIOA_ODR |= (1<<15); // Turn on led P15
-
-	// Switches
-	GPIOA_MODER &= ~(3<<(12*2)); // PA 12
-	GPIOA_MODER &= ~(3<<(5*2)); // PA 5
-	GPIOA_MODER &= ~(3<<(4*2)); // PA 4
-
-
-
-	GPIOA_PUPDR &= ~(3<<(5*2)); // Clear PA 5
-	GPIOA_PUPDR |= (2<<(5*2)); //Set PA5 Pulldown
-	GPIOA_PUPDR &= ~(3<<(12*2)); // Clear PA 12
-	GPIOA_PUPDR |= (2<<(12*2)); //Set PA12 Pulldown
-	GPIOA_PUPDR &= ~(3<<(4*2)); // Clear PA 4
-	GPIOA_PUPDR |= (2<<(4*2)); //Set PA4 Pulldown
-
+// DIAGNOL CONDITIONS
+// If player A == 9, 10, 15 player A wins
+// If player A == 6, 7, 8 player A wins
+// If player A == 5, 12, 11 player A wins
 
 
 
