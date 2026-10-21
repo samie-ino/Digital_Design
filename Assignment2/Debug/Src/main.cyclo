@@ -1,0 +1,10 @@
+../Src/main.c:69:5:get_switch	4
+../Src/main.c:98:6:turnA	1
+../Src/main.c:107:6:turnB	1
+../Src/main.c:120:6:leds_off	2
+../Src/main.c:137:6:reset	2
+../Src/main.c:157:5:winner_check	49
+../Src/main.c:203:6:delay_25ms	2
+../Src/main.c:229:6:delay_2s	2
+../Src/main.c:243:6:wait_for_release	2
+../Src/main.c:258:5:main	14

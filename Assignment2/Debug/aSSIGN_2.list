@@ -1,0 +1,1449 @@
+
+aSSIGN_2.elf:     file format elf32-littlearm
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .isr_vector   000000bc  08000000  08000000  00001000  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  1 .text         000007b0  080000bc  080000bc  000010bc  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .rodata       00000000  0800086c  0800086c  00002058  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  3 .ARM.extab    00000000  0800086c  0800086c  00002058  2**0
+                  CONTENTS, READONLY
+  4 .ARM          00000000  0800086c  0800086c  00002058  2**0
+                  CONTENTS, READONLY
+  5 .preinit_array 00000000  0800086c  0800086c  00002058  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  6 .init_array   00000004  0800086c  0800086c  0000186c  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  7 .fini_array   00000004  08000870  08000870  00001870  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  8 .data         00000058  20000000  08000874  00002000  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  9 .bss          0000004c  20000058  080008cc  00002058  2**2
+                  ALLOC
+ 10 ._user_heap_stack 00000604  200000a4  080008cc  000020a4  2**0
+                  ALLOC
+ 11 .ARM.attributes 00000028  00000000  00000000  00002058  2**0
+                  CONTENTS, READONLY
+ 12 .debug_info   000002b5  00000000  00000000  00002080  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 13 .debug_abbrev 0000018e  00000000  00000000  00002335  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 14 .debug_aranges 00000090  00000000  00000000  000024c8  2**3
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 15 .debug_rnglists 00000064  00000000  00000000  00002558  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 16 .debug_macro  00000b13  00000000  00000000  000025bc  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 17 .debug_line   0000066d  00000000  00000000  000030cf  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 18 .debug_str    000030c3  00000000  00000000  0000373c  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 19 .comment      00000043  00000000  00000000  000067ff  2**0
+                  CONTENTS, READONLY
+ 20 .debug_frame  0000016c  00000000  00000000  00006844  2**2
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 21 .debug_line_str 00000035  00000000  00000000  000069b0  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+
+Disassembly of section .text:
+
+080000bc <__do_global_dtors_aux>:
+ 80000bc:	b510      	push	{r4, lr}
+ 80000be:	4c06      	ldr	r4, [pc, #24]	@ (80000d8 <__do_global_dtors_aux+0x1c>)
+ 80000c0:	7823      	ldrb	r3, [r4, #0]
+ 80000c2:	2b00      	cmp	r3, #0
+ 80000c4:	d107      	bne.n	80000d6 <__do_global_dtors_aux+0x1a>
+ 80000c6:	4b05      	ldr	r3, [pc, #20]	@ (80000dc <__do_global_dtors_aux+0x20>)
+ 80000c8:	2b00      	cmp	r3, #0
+ 80000ca:	d002      	beq.n	80000d2 <__do_global_dtors_aux+0x16>
+ 80000cc:	4804      	ldr	r0, [pc, #16]	@ (80000e0 <__do_global_dtors_aux+0x24>)
+ 80000ce:	e000      	b.n	80000d2 <__do_global_dtors_aux+0x16>
+ 80000d0:	bf00      	nop
+ 80000d2:	2301      	movs	r3, #1
+ 80000d4:	7023      	strb	r3, [r4, #0]
+ 80000d6:	bd10      	pop	{r4, pc}
+ 80000d8:	20000058 	.word	0x20000058
+ 80000dc:	00000000 	.word	0x00000000
+ 80000e0:	08000854 	.word	0x08000854
+
+080000e4 <frame_dummy>:
+ 80000e4:	4b04      	ldr	r3, [pc, #16]	@ (80000f8 <frame_dummy+0x14>)
+ 80000e6:	b510      	push	{r4, lr}
+ 80000e8:	2b00      	cmp	r3, #0
+ 80000ea:	d003      	beq.n	80000f4 <frame_dummy+0x10>
+ 80000ec:	4903      	ldr	r1, [pc, #12]	@ (80000fc <frame_dummy+0x18>)
+ 80000ee:	4804      	ldr	r0, [pc, #16]	@ (8000100 <frame_dummy+0x1c>)
+ 80000f0:	e000      	b.n	80000f4 <frame_dummy+0x10>
+ 80000f2:	bf00      	nop
+ 80000f4:	bd10      	pop	{r4, pc}
+ 80000f6:	46c0      	nop			@ (mov r8, r8)
+ 80000f8:	00000000 	.word	0x00000000
+ 80000fc:	2000005c 	.word	0x2000005c
+ 8000100:	08000854 	.word	0x08000854
+
+08000104 <get_switch>:
+// ----------------------------------------------------
+// Switch Actions
+// ----------------------------------------------------
+
+int get_switch(void)
+{
+ 8000104:	b580      	push	{r7, lr}
+ 8000106:	af00      	add	r7, sp, #0
+    // Switch 1 - PA4
+    if (GPIOA_IDR & (1 << 4))
+ 8000108:	4b0c      	ldr	r3, [pc, #48]	@ (800013c <get_switch+0x38>)
+ 800010a:	681b      	ldr	r3, [r3, #0]
+ 800010c:	2210      	movs	r2, #16
+ 800010e:	4013      	ands	r3, r2
+ 8000110:	d001      	beq.n	8000116 <get_switch+0x12>
+    {
+        return 0;
+ 8000112:	2300      	movs	r3, #0
+ 8000114:	e00f      	b.n	8000136 <get_switch+0x32>
+    }
+
+    // Switch 2 - PA1
+    if (GPIOA_IDR & (1 << 1))
+ 8000116:	4b09      	ldr	r3, [pc, #36]	@ (800013c <get_switch+0x38>)
+ 8000118:	681b      	ldr	r3, [r3, #0]
+ 800011a:	2202      	movs	r2, #2
+ 800011c:	4013      	ands	r3, r2
+ 800011e:	d001      	beq.n	8000124 <get_switch+0x20>
+    {
+        return 1;
+ 8000120:	2301      	movs	r3, #1
+ 8000122:	e008      	b.n	8000136 <get_switch+0x32>
+    }
+
+    // Switch 3 - PA0
+    if (GPIOA_IDR & (1 << 0))
+ 8000124:	4b05      	ldr	r3, [pc, #20]	@ (800013c <get_switch+0x38>)
+ 8000126:	681b      	ldr	r3, [r3, #0]
+ 8000128:	2201      	movs	r2, #1
+ 800012a:	4013      	ands	r3, r2
+ 800012c:	d001      	beq.n	8000132 <get_switch+0x2e>
+    {
+        return 2;
+ 800012e:	2302      	movs	r3, #2
+ 8000130:	e001      	b.n	8000136 <get_switch+0x32>
+    }
+
+    // No switch pressed
+    return -1;
+ 8000132:	2301      	movs	r3, #1
+ 8000134:	425b      	negs	r3, r3
+}
+ 8000136:	0018      	movs	r0, r3
+ 8000138:	46bd      	mov	sp, r7
+ 800013a:	bd80      	pop	{r7, pc}
+ 800013c:	50000010 	.word	0x50000010
+
+08000140 <turnA>:
+// ----------------------------------------------------
+// LED Functions
+// ----------------------------------------------------
+
+void turnA(int p)
+{
+ 8000140:	b580      	push	{r7, lr}
+ 8000142:	b082      	sub	sp, #8
+ 8000144:	af00      	add	r7, sp, #0
+ 8000146:	6078      	str	r0, [r7, #4]
+    GPIOA_MODER &= ~(3 << (p * 2));
+ 8000148:	23a0      	movs	r3, #160	@ 0xa0
+ 800014a:	05db      	lsls	r3, r3, #23
+ 800014c:	681a      	ldr	r2, [r3, #0]
+ 800014e:	687b      	ldr	r3, [r7, #4]
+ 8000150:	005b      	lsls	r3, r3, #1
+ 8000152:	2103      	movs	r1, #3
+ 8000154:	4099      	lsls	r1, r3
+ 8000156:	000b      	movs	r3, r1
+ 8000158:	43db      	mvns	r3, r3
+ 800015a:	0019      	movs	r1, r3
+ 800015c:	23a0      	movs	r3, #160	@ 0xa0
+ 800015e:	05db      	lsls	r3, r3, #23
+ 8000160:	400a      	ands	r2, r1
+ 8000162:	601a      	str	r2, [r3, #0]
+    GPIOA_MODER |= (1 << (p * 2));
+ 8000164:	23a0      	movs	r3, #160	@ 0xa0
+ 8000166:	05db      	lsls	r3, r3, #23
+ 8000168:	681a      	ldr	r2, [r3, #0]
+ 800016a:	687b      	ldr	r3, [r7, #4]
+ 800016c:	005b      	lsls	r3, r3, #1
+ 800016e:	2101      	movs	r1, #1
+ 8000170:	4099      	lsls	r1, r3
+ 8000172:	000b      	movs	r3, r1
+ 8000174:	0019      	movs	r1, r3
+ 8000176:	23a0      	movs	r3, #160	@ 0xa0
+ 8000178:	05db      	lsls	r3, r3, #23
+ 800017a:	430a      	orrs	r2, r1
+ 800017c:	601a      	str	r2, [r3, #0]
+
+    GPIOA_ODR |= (1 << p);
+ 800017e:	4b07      	ldr	r3, [pc, #28]	@ (800019c <turnA+0x5c>)
+ 8000180:	681a      	ldr	r2, [r3, #0]
+ 8000182:	2101      	movs	r1, #1
+ 8000184:	687b      	ldr	r3, [r7, #4]
+ 8000186:	4099      	lsls	r1, r3
+ 8000188:	000b      	movs	r3, r1
+ 800018a:	0019      	movs	r1, r3
+ 800018c:	4b03      	ldr	r3, [pc, #12]	@ (800019c <turnA+0x5c>)
+ 800018e:	430a      	orrs	r2, r1
+ 8000190:	601a      	str	r2, [r3, #0]
+}
+ 8000192:	46c0      	nop			@ (mov r8, r8)
+ 8000194:	46bd      	mov	sp, r7
+ 8000196:	b002      	add	sp, #8
+ 8000198:	bd80      	pop	{r7, pc}
+ 800019a:	46c0      	nop			@ (mov r8, r8)
+ 800019c:	50000014 	.word	0x50000014
+
+080001a0 <turnB>:
+
+
+void turnB(int p)
+{
+ 80001a0:	b580      	push	{r7, lr}
+ 80001a2:	b082      	sub	sp, #8
+ 80001a4:	af00      	add	r7, sp, #0
+ 80001a6:	6078      	str	r0, [r7, #4]
+    GPIOB_MODER &= ~(3 << (p * 2));
+ 80001a8:	4b12      	ldr	r3, [pc, #72]	@ (80001f4 <turnB+0x54>)
+ 80001aa:	681a      	ldr	r2, [r3, #0]
+ 80001ac:	687b      	ldr	r3, [r7, #4]
+ 80001ae:	005b      	lsls	r3, r3, #1
+ 80001b0:	2103      	movs	r1, #3
+ 80001b2:	4099      	lsls	r1, r3
+ 80001b4:	000b      	movs	r3, r1
+ 80001b6:	43db      	mvns	r3, r3
+ 80001b8:	0019      	movs	r1, r3
+ 80001ba:	4b0e      	ldr	r3, [pc, #56]	@ (80001f4 <turnB+0x54>)
+ 80001bc:	400a      	ands	r2, r1
+ 80001be:	601a      	str	r2, [r3, #0]
+    GPIOB_MODER |= (1 << (p * 2));
+ 80001c0:	4b0c      	ldr	r3, [pc, #48]	@ (80001f4 <turnB+0x54>)
+ 80001c2:	681a      	ldr	r2, [r3, #0]
+ 80001c4:	687b      	ldr	r3, [r7, #4]
+ 80001c6:	005b      	lsls	r3, r3, #1
+ 80001c8:	2101      	movs	r1, #1
+ 80001ca:	4099      	lsls	r1, r3
+ 80001cc:	000b      	movs	r3, r1
+ 80001ce:	0019      	movs	r1, r3
+ 80001d0:	4b08      	ldr	r3, [pc, #32]	@ (80001f4 <turnB+0x54>)
+ 80001d2:	430a      	orrs	r2, r1
+ 80001d4:	601a      	str	r2, [r3, #0]
+
+    GPIOB_ODR |= (1 << p);
+ 80001d6:	4b08      	ldr	r3, [pc, #32]	@ (80001f8 <turnB+0x58>)
+ 80001d8:	681a      	ldr	r2, [r3, #0]
+ 80001da:	2101      	movs	r1, #1
+ 80001dc:	687b      	ldr	r3, [r7, #4]
+ 80001de:	4099      	lsls	r1, r3
+ 80001e0:	000b      	movs	r3, r1
+ 80001e2:	0019      	movs	r1, r3
+ 80001e4:	4b04      	ldr	r3, [pc, #16]	@ (80001f8 <turnB+0x58>)
+ 80001e6:	430a      	orrs	r2, r1
+ 80001e8:	601a      	str	r2, [r3, #0]
+}
+ 80001ea:	46c0      	nop			@ (mov r8, r8)
+ 80001ec:	46bd      	mov	sp, r7
+ 80001ee:	b002      	add	sp, #8
+ 80001f0:	bd80      	pop	{r7, pc}
+ 80001f2:	46c0      	nop			@ (mov r8, r8)
+ 80001f4:	50000400 	.word	0x50000400
+ 80001f8:	50000414 	.word	0x50000414
+
+080001fc <leds_off>:
+// ----------------------------------------------------
+// Turn All LEDs Off
+// ----------------------------------------------------
+
+void leds_off(void)
+{
+ 80001fc:	b580      	push	{r7, lr}
+ 80001fe:	b082      	sub	sp, #8
+ 8000200:	af00      	add	r7, sp, #0
+    for (int i = 0; i < 9; i++)
+ 8000202:	2300      	movs	r3, #0
+ 8000204:	607b      	str	r3, [r7, #4]
+ 8000206:	e01e      	b.n	8000246 <leds_off+0x4a>
+    {
+        // Turn off Player A LEDs
+        GPIOA_ODR &= ~(1 << portA_board[i]);
+ 8000208:	4b13      	ldr	r3, [pc, #76]	@ (8000258 <leds_off+0x5c>)
+ 800020a:	681a      	ldr	r2, [r3, #0]
+ 800020c:	4b13      	ldr	r3, [pc, #76]	@ (800025c <leds_off+0x60>)
+ 800020e:	6879      	ldr	r1, [r7, #4]
+ 8000210:	0089      	lsls	r1, r1, #2
+ 8000212:	58cb      	ldr	r3, [r1, r3]
+ 8000214:	2101      	movs	r1, #1
+ 8000216:	4099      	lsls	r1, r3
+ 8000218:	000b      	movs	r3, r1
+ 800021a:	43db      	mvns	r3, r3
+ 800021c:	0019      	movs	r1, r3
+ 800021e:	4b0e      	ldr	r3, [pc, #56]	@ (8000258 <leds_off+0x5c>)
+ 8000220:	400a      	ands	r2, r1
+ 8000222:	601a      	str	r2, [r3, #0]
+
+        // Turn off Player B LEDs
+        GPIOB_ODR &= ~(1 << portB_board[i]);
+ 8000224:	4b0e      	ldr	r3, [pc, #56]	@ (8000260 <leds_off+0x64>)
+ 8000226:	681a      	ldr	r2, [r3, #0]
+ 8000228:	4b0e      	ldr	r3, [pc, #56]	@ (8000264 <leds_off+0x68>)
+ 800022a:	6879      	ldr	r1, [r7, #4]
+ 800022c:	0089      	lsls	r1, r1, #2
+ 800022e:	58cb      	ldr	r3, [r1, r3]
+ 8000230:	2101      	movs	r1, #1
+ 8000232:	4099      	lsls	r1, r3
+ 8000234:	000b      	movs	r3, r1
+ 8000236:	43db      	mvns	r3, r3
+ 8000238:	0019      	movs	r1, r3
+ 800023a:	4b09      	ldr	r3, [pc, #36]	@ (8000260 <leds_off+0x64>)
+ 800023c:	400a      	ands	r2, r1
+ 800023e:	601a      	str	r2, [r3, #0]
+    for (int i = 0; i < 9; i++)
+ 8000240:	687b      	ldr	r3, [r7, #4]
+ 8000242:	3301      	adds	r3, #1
+ 8000244:	607b      	str	r3, [r7, #4]
+ 8000246:	687b      	ldr	r3, [r7, #4]
+ 8000248:	2b08      	cmp	r3, #8
+ 800024a:	dddd      	ble.n	8000208 <leds_off+0xc>
+    }
+}
+ 800024c:	46c0      	nop			@ (mov r8, r8)
+ 800024e:	46c0      	nop			@ (mov r8, r8)
+ 8000250:	46bd      	mov	sp, r7
+ 8000252:	b002      	add	sp, #8
+ 8000254:	bd80      	pop	{r7, pc}
+ 8000256:	46c0      	nop			@ (mov r8, r8)
+ 8000258:	50000014 	.word	0x50000014
+ 800025c:	20000010 	.word	0x20000010
+ 8000260:	50000414 	.word	0x50000414
+ 8000264:	20000034 	.word	0x20000034
+
+08000268 <reset>:
+// ----------------------------------------------------
+// Reset Game
+// ----------------------------------------------------
+
+void reset(void)
+{
+ 8000268:	b580      	push	{r7, lr}
+ 800026a:	b082      	sub	sp, #8
+ 800026c:	af00      	add	r7, sp, #0
+    // Turn all LEDs off FIRST
+    leds_off();
+ 800026e:	f7ff ffc5 	bl	80001fc <leds_off>
+
+    // Clear all positions on the player board
+    for (int i = 0; i < 9; i++)
+ 8000272:	2300      	movs	r3, #0
+ 8000274:	607b      	str	r3, [r7, #4]
+ 8000276:	e007      	b.n	8000288 <reset+0x20>
+    {
+        player_board[i] = 0;
+ 8000278:	4b09      	ldr	r3, [pc, #36]	@ (80002a0 <reset+0x38>)
+ 800027a:	687a      	ldr	r2, [r7, #4]
+ 800027c:	0092      	lsls	r2, r2, #2
+ 800027e:	2100      	movs	r1, #0
+ 8000280:	50d1      	str	r1, [r2, r3]
+    for (int i = 0; i < 9; i++)
+ 8000282:	687b      	ldr	r3, [r7, #4]
+ 8000284:	3301      	adds	r3, #1
+ 8000286:	607b      	str	r3, [r7, #4]
+ 8000288:	687b      	ldr	r3, [r7, #4]
+ 800028a:	2b08      	cmp	r3, #8
+ 800028c:	ddf4      	ble.n	8000278 <reset+0x10>
+    }
+
+    // Player A starts the new game
+    current_player = player_A;
+ 800028e:	4b05      	ldr	r3, [pc, #20]	@ (80002a4 <reset+0x3c>)
+ 8000290:	681a      	ldr	r2, [r3, #0]
+ 8000292:	4b05      	ldr	r3, [pc, #20]	@ (80002a8 <reset+0x40>)
+ 8000294:	601a      	str	r2, [r3, #0]
+}
+ 8000296:	46c0      	nop			@ (mov r8, r8)
+ 8000298:	46bd      	mov	sp, r7
+ 800029a:	b002      	add	sp, #8
+ 800029c:	bd80      	pop	{r7, pc}
+ 800029e:	46c0      	nop			@ (mov r8, r8)
+ 80002a0:	20000080 	.word	0x20000080
+ 80002a4:	20000004 	.word	0x20000004
+ 80002a8:	2000000c 	.word	0x2000000c
+
+080002ac <winner_check>:
+// ----------------------------------------------------
+// Winner Check
+// ----------------------------------------------------
+
+int winner_check(void)
+{
+ 80002ac:	b580      	push	{r7, lr}
+ 80002ae:	af00      	add	r7, sp, #0
+    // Player A
+    if (
+        (player_board[0] == player_A && player_board[1] == player_A && player_board[2] == player_A) ||
+ 80002b0:	4b95      	ldr	r3, [pc, #596]	@ (8000508 <winner_check+0x25c>)
+ 80002b2:	681a      	ldr	r2, [r3, #0]
+ 80002b4:	4b95      	ldr	r3, [pc, #596]	@ (800050c <winner_check+0x260>)
+ 80002b6:	681b      	ldr	r3, [r3, #0]
+    if (
+ 80002b8:	429a      	cmp	r2, r3
+ 80002ba:	d10c      	bne.n	80002d6 <winner_check+0x2a>
+        (player_board[0] == player_A && player_board[1] == player_A && player_board[2] == player_A) ||
+ 80002bc:	4b92      	ldr	r3, [pc, #584]	@ (8000508 <winner_check+0x25c>)
+ 80002be:	685a      	ldr	r2, [r3, #4]
+ 80002c0:	4b92      	ldr	r3, [pc, #584]	@ (800050c <winner_check+0x260>)
+ 80002c2:	681b      	ldr	r3, [r3, #0]
+ 80002c4:	429a      	cmp	r2, r3
+ 80002c6:	d106      	bne.n	80002d6 <winner_check+0x2a>
+ 80002c8:	4b8f      	ldr	r3, [pc, #572]	@ (8000508 <winner_check+0x25c>)
+ 80002ca:	689a      	ldr	r2, [r3, #8]
+ 80002cc:	4b8f      	ldr	r3, [pc, #572]	@ (800050c <winner_check+0x260>)
+ 80002ce:	681b      	ldr	r3, [r3, #0]
+ 80002d0:	429a      	cmp	r2, r3
+ 80002d2:	d100      	bne.n	80002d6 <winner_check+0x2a>
+ 80002d4:	e07e      	b.n	80003d4 <winner_check+0x128>
+        (player_board[3] == player_A && player_board[4] == player_A && player_board[5] == player_A) ||
+ 80002d6:	4b8c      	ldr	r3, [pc, #560]	@ (8000508 <winner_check+0x25c>)
+ 80002d8:	68da      	ldr	r2, [r3, #12]
+ 80002da:	4b8c      	ldr	r3, [pc, #560]	@ (800050c <winner_check+0x260>)
+ 80002dc:	681b      	ldr	r3, [r3, #0]
+        (player_board[0] == player_A && player_board[1] == player_A && player_board[2] == player_A) ||
+ 80002de:	429a      	cmp	r2, r3
+ 80002e0:	d10c      	bne.n	80002fc <winner_check+0x50>
+        (player_board[3] == player_A && player_board[4] == player_A && player_board[5] == player_A) ||
+ 80002e2:	4b89      	ldr	r3, [pc, #548]	@ (8000508 <winner_check+0x25c>)
+ 80002e4:	691a      	ldr	r2, [r3, #16]
+ 80002e6:	4b89      	ldr	r3, [pc, #548]	@ (800050c <winner_check+0x260>)
+ 80002e8:	681b      	ldr	r3, [r3, #0]
+ 80002ea:	429a      	cmp	r2, r3
+ 80002ec:	d106      	bne.n	80002fc <winner_check+0x50>
+ 80002ee:	4b86      	ldr	r3, [pc, #536]	@ (8000508 <winner_check+0x25c>)
+ 80002f0:	695a      	ldr	r2, [r3, #20]
+ 80002f2:	4b86      	ldr	r3, [pc, #536]	@ (800050c <winner_check+0x260>)
+ 80002f4:	681b      	ldr	r3, [r3, #0]
+ 80002f6:	429a      	cmp	r2, r3
+ 80002f8:	d100      	bne.n	80002fc <winner_check+0x50>
+ 80002fa:	e06b      	b.n	80003d4 <winner_check+0x128>
+        (player_board[6] == player_A && player_board[7] == player_A && player_board[8] == player_A) ||
+ 80002fc:	4b82      	ldr	r3, [pc, #520]	@ (8000508 <winner_check+0x25c>)
+ 80002fe:	699a      	ldr	r2, [r3, #24]
+ 8000300:	4b82      	ldr	r3, [pc, #520]	@ (800050c <winner_check+0x260>)
+ 8000302:	681b      	ldr	r3, [r3, #0]
+        (player_board[3] == player_A && player_board[4] == player_A && player_board[5] == player_A) ||
+ 8000304:	429a      	cmp	r2, r3
+ 8000306:	d10b      	bne.n	8000320 <winner_check+0x74>
+        (player_board[6] == player_A && player_board[7] == player_A && player_board[8] == player_A) ||
+ 8000308:	4b7f      	ldr	r3, [pc, #508]	@ (8000508 <winner_check+0x25c>)
+ 800030a:	69da      	ldr	r2, [r3, #28]
+ 800030c:	4b7f      	ldr	r3, [pc, #508]	@ (800050c <winner_check+0x260>)
+ 800030e:	681b      	ldr	r3, [r3, #0]
+ 8000310:	429a      	cmp	r2, r3
+ 8000312:	d105      	bne.n	8000320 <winner_check+0x74>
+ 8000314:	4b7c      	ldr	r3, [pc, #496]	@ (8000508 <winner_check+0x25c>)
+ 8000316:	6a1a      	ldr	r2, [r3, #32]
+ 8000318:	4b7c      	ldr	r3, [pc, #496]	@ (800050c <winner_check+0x260>)
+ 800031a:	681b      	ldr	r3, [r3, #0]
+ 800031c:	429a      	cmp	r2, r3
+ 800031e:	d059      	beq.n	80003d4 <winner_check+0x128>
+
+        (player_board[0] == player_A && player_board[3] == player_A && player_board[6] == player_A) ||
+ 8000320:	4b79      	ldr	r3, [pc, #484]	@ (8000508 <winner_check+0x25c>)
+ 8000322:	681a      	ldr	r2, [r3, #0]
+ 8000324:	4b79      	ldr	r3, [pc, #484]	@ (800050c <winner_check+0x260>)
+ 8000326:	681b      	ldr	r3, [r3, #0]
+        (player_board[6] == player_A && player_board[7] == player_A && player_board[8] == player_A) ||
+ 8000328:	429a      	cmp	r2, r3
+ 800032a:	d10b      	bne.n	8000344 <winner_check+0x98>
+        (player_board[0] == player_A && player_board[3] == player_A && player_board[6] == player_A) ||
+ 800032c:	4b76      	ldr	r3, [pc, #472]	@ (8000508 <winner_check+0x25c>)
+ 800032e:	68da      	ldr	r2, [r3, #12]
+ 8000330:	4b76      	ldr	r3, [pc, #472]	@ (800050c <winner_check+0x260>)
+ 8000332:	681b      	ldr	r3, [r3, #0]
+ 8000334:	429a      	cmp	r2, r3
+ 8000336:	d105      	bne.n	8000344 <winner_check+0x98>
+ 8000338:	4b73      	ldr	r3, [pc, #460]	@ (8000508 <winner_check+0x25c>)
+ 800033a:	699a      	ldr	r2, [r3, #24]
+ 800033c:	4b73      	ldr	r3, [pc, #460]	@ (800050c <winner_check+0x260>)
+ 800033e:	681b      	ldr	r3, [r3, #0]
+ 8000340:	429a      	cmp	r2, r3
+ 8000342:	d047      	beq.n	80003d4 <winner_check+0x128>
+        (player_board[1] == player_A && player_board[4] == player_A && player_board[7] == player_A) ||
+ 8000344:	4b70      	ldr	r3, [pc, #448]	@ (8000508 <winner_check+0x25c>)
+ 8000346:	685a      	ldr	r2, [r3, #4]
+ 8000348:	4b70      	ldr	r3, [pc, #448]	@ (800050c <winner_check+0x260>)
+ 800034a:	681b      	ldr	r3, [r3, #0]
+        (player_board[0] == player_A && player_board[3] == player_A && player_board[6] == player_A) ||
+ 800034c:	429a      	cmp	r2, r3
+ 800034e:	d10b      	bne.n	8000368 <winner_check+0xbc>
+        (player_board[1] == player_A && player_board[4] == player_A && player_board[7] == player_A) ||
+ 8000350:	4b6d      	ldr	r3, [pc, #436]	@ (8000508 <winner_check+0x25c>)
+ 8000352:	691a      	ldr	r2, [r3, #16]
+ 8000354:	4b6d      	ldr	r3, [pc, #436]	@ (800050c <winner_check+0x260>)
+ 8000356:	681b      	ldr	r3, [r3, #0]
+ 8000358:	429a      	cmp	r2, r3
+ 800035a:	d105      	bne.n	8000368 <winner_check+0xbc>
+ 800035c:	4b6a      	ldr	r3, [pc, #424]	@ (8000508 <winner_check+0x25c>)
+ 800035e:	69da      	ldr	r2, [r3, #28]
+ 8000360:	4b6a      	ldr	r3, [pc, #424]	@ (800050c <winner_check+0x260>)
+ 8000362:	681b      	ldr	r3, [r3, #0]
+ 8000364:	429a      	cmp	r2, r3
+ 8000366:	d035      	beq.n	80003d4 <winner_check+0x128>
+        (player_board[2] == player_A && player_board[5] == player_A && player_board[8] == player_A) ||
+ 8000368:	4b67      	ldr	r3, [pc, #412]	@ (8000508 <winner_check+0x25c>)
+ 800036a:	689a      	ldr	r2, [r3, #8]
+ 800036c:	4b67      	ldr	r3, [pc, #412]	@ (800050c <winner_check+0x260>)
+ 800036e:	681b      	ldr	r3, [r3, #0]
+        (player_board[1] == player_A && player_board[4] == player_A && player_board[7] == player_A) ||
+ 8000370:	429a      	cmp	r2, r3
+ 8000372:	d10b      	bne.n	800038c <winner_check+0xe0>
+        (player_board[2] == player_A && player_board[5] == player_A && player_board[8] == player_A) ||
+ 8000374:	4b64      	ldr	r3, [pc, #400]	@ (8000508 <winner_check+0x25c>)
+ 8000376:	695a      	ldr	r2, [r3, #20]
+ 8000378:	4b64      	ldr	r3, [pc, #400]	@ (800050c <winner_check+0x260>)
+ 800037a:	681b      	ldr	r3, [r3, #0]
+ 800037c:	429a      	cmp	r2, r3
+ 800037e:	d105      	bne.n	800038c <winner_check+0xe0>
+ 8000380:	4b61      	ldr	r3, [pc, #388]	@ (8000508 <winner_check+0x25c>)
+ 8000382:	6a1a      	ldr	r2, [r3, #32]
+ 8000384:	4b61      	ldr	r3, [pc, #388]	@ (800050c <winner_check+0x260>)
+ 8000386:	681b      	ldr	r3, [r3, #0]
+ 8000388:	429a      	cmp	r2, r3
+ 800038a:	d023      	beq.n	80003d4 <winner_check+0x128>
+
+        (player_board[0] == player_A && player_board[4] == player_A && player_board[8] == player_A) ||
+ 800038c:	4b5e      	ldr	r3, [pc, #376]	@ (8000508 <winner_check+0x25c>)
+ 800038e:	681a      	ldr	r2, [r3, #0]
+ 8000390:	4b5e      	ldr	r3, [pc, #376]	@ (800050c <winner_check+0x260>)
+ 8000392:	681b      	ldr	r3, [r3, #0]
+        (player_board[2] == player_A && player_board[5] == player_A && player_board[8] == player_A) ||
+ 8000394:	429a      	cmp	r2, r3
+ 8000396:	d10b      	bne.n	80003b0 <winner_check+0x104>
+        (player_board[0] == player_A && player_board[4] == player_A && player_board[8] == player_A) ||
+ 8000398:	4b5b      	ldr	r3, [pc, #364]	@ (8000508 <winner_check+0x25c>)
+ 800039a:	691a      	ldr	r2, [r3, #16]
+ 800039c:	4b5b      	ldr	r3, [pc, #364]	@ (800050c <winner_check+0x260>)
+ 800039e:	681b      	ldr	r3, [r3, #0]
+ 80003a0:	429a      	cmp	r2, r3
+ 80003a2:	d105      	bne.n	80003b0 <winner_check+0x104>
+ 80003a4:	4b58      	ldr	r3, [pc, #352]	@ (8000508 <winner_check+0x25c>)
+ 80003a6:	6a1a      	ldr	r2, [r3, #32]
+ 80003a8:	4b58      	ldr	r3, [pc, #352]	@ (800050c <winner_check+0x260>)
+ 80003aa:	681b      	ldr	r3, [r3, #0]
+ 80003ac:	429a      	cmp	r2, r3
+ 80003ae:	d011      	beq.n	80003d4 <winner_check+0x128>
+        (player_board[2] == player_A && player_board[4] == player_A && player_board[6] == player_A)
+ 80003b0:	4b55      	ldr	r3, [pc, #340]	@ (8000508 <winner_check+0x25c>)
+ 80003b2:	689a      	ldr	r2, [r3, #8]
+ 80003b4:	4b55      	ldr	r3, [pc, #340]	@ (800050c <winner_check+0x260>)
+ 80003b6:	681b      	ldr	r3, [r3, #0]
+        (player_board[0] == player_A && player_board[4] == player_A && player_board[8] == player_A) ||
+ 80003b8:	429a      	cmp	r2, r3
+ 80003ba:	d10d      	bne.n	80003d8 <winner_check+0x12c>
+        (player_board[2] == player_A && player_board[4] == player_A && player_board[6] == player_A)
+ 80003bc:	4b52      	ldr	r3, [pc, #328]	@ (8000508 <winner_check+0x25c>)
+ 80003be:	691a      	ldr	r2, [r3, #16]
+ 80003c0:	4b52      	ldr	r3, [pc, #328]	@ (800050c <winner_check+0x260>)
+ 80003c2:	681b      	ldr	r3, [r3, #0]
+ 80003c4:	429a      	cmp	r2, r3
+ 80003c6:	d107      	bne.n	80003d8 <winner_check+0x12c>
+ 80003c8:	4b4f      	ldr	r3, [pc, #316]	@ (8000508 <winner_check+0x25c>)
+ 80003ca:	699a      	ldr	r2, [r3, #24]
+ 80003cc:	4b4f      	ldr	r3, [pc, #316]	@ (800050c <winner_check+0x260>)
+ 80003ce:	681b      	ldr	r3, [r3, #0]
+ 80003d0:	429a      	cmp	r2, r3
+ 80003d2:	d101      	bne.n	80003d8 <winner_check+0x12c>
+       )
+    {
+        return 1;
+ 80003d4:	2301      	movs	r3, #1
+ 80003d6:	e094      	b.n	8000502 <winner_check+0x256>
+    }
+
+
+    // Player B
+    if (
+        (player_board[0] == player_B && player_board[1] == player_B && player_board[2] == player_B) ||
+ 80003d8:	4b4b      	ldr	r3, [pc, #300]	@ (8000508 <winner_check+0x25c>)
+ 80003da:	681a      	ldr	r2, [r3, #0]
+ 80003dc:	4b4c      	ldr	r3, [pc, #304]	@ (8000510 <winner_check+0x264>)
+ 80003de:	681b      	ldr	r3, [r3, #0]
+    if (
+ 80003e0:	429a      	cmp	r2, r3
+ 80003e2:	d10c      	bne.n	80003fe <winner_check+0x152>
+        (player_board[0] == player_B && player_board[1] == player_B && player_board[2] == player_B) ||
+ 80003e4:	4b48      	ldr	r3, [pc, #288]	@ (8000508 <winner_check+0x25c>)
+ 80003e6:	685a      	ldr	r2, [r3, #4]
+ 80003e8:	4b49      	ldr	r3, [pc, #292]	@ (8000510 <winner_check+0x264>)
+ 80003ea:	681b      	ldr	r3, [r3, #0]
+ 80003ec:	429a      	cmp	r2, r3
+ 80003ee:	d106      	bne.n	80003fe <winner_check+0x152>
+ 80003f0:	4b45      	ldr	r3, [pc, #276]	@ (8000508 <winner_check+0x25c>)
+ 80003f2:	689a      	ldr	r2, [r3, #8]
+ 80003f4:	4b46      	ldr	r3, [pc, #280]	@ (8000510 <winner_check+0x264>)
+ 80003f6:	681b      	ldr	r3, [r3, #0]
+ 80003f8:	429a      	cmp	r2, r3
+ 80003fa:	d100      	bne.n	80003fe <winner_check+0x152>
+ 80003fc:	e07e      	b.n	80004fc <winner_check+0x250>
+        (player_board[3] == player_B && player_board[4] == player_B && player_board[5] == player_B) ||
+ 80003fe:	4b42      	ldr	r3, [pc, #264]	@ (8000508 <winner_check+0x25c>)
+ 8000400:	68da      	ldr	r2, [r3, #12]
+ 8000402:	4b43      	ldr	r3, [pc, #268]	@ (8000510 <winner_check+0x264>)
+ 8000404:	681b      	ldr	r3, [r3, #0]
+        (player_board[0] == player_B && player_board[1] == player_B && player_board[2] == player_B) ||
+ 8000406:	429a      	cmp	r2, r3
+ 8000408:	d10c      	bne.n	8000424 <winner_check+0x178>
+        (player_board[3] == player_B && player_board[4] == player_B && player_board[5] == player_B) ||
+ 800040a:	4b3f      	ldr	r3, [pc, #252]	@ (8000508 <winner_check+0x25c>)
+ 800040c:	691a      	ldr	r2, [r3, #16]
+ 800040e:	4b40      	ldr	r3, [pc, #256]	@ (8000510 <winner_check+0x264>)
+ 8000410:	681b      	ldr	r3, [r3, #0]
+ 8000412:	429a      	cmp	r2, r3
+ 8000414:	d106      	bne.n	8000424 <winner_check+0x178>
+ 8000416:	4b3c      	ldr	r3, [pc, #240]	@ (8000508 <winner_check+0x25c>)
+ 8000418:	695a      	ldr	r2, [r3, #20]
+ 800041a:	4b3d      	ldr	r3, [pc, #244]	@ (8000510 <winner_check+0x264>)
+ 800041c:	681b      	ldr	r3, [r3, #0]
+ 800041e:	429a      	cmp	r2, r3
+ 8000420:	d100      	bne.n	8000424 <winner_check+0x178>
+ 8000422:	e06b      	b.n	80004fc <winner_check+0x250>
+        (player_board[6] == player_B && player_board[7] == player_B && player_board[8] == player_B) ||
+ 8000424:	4b38      	ldr	r3, [pc, #224]	@ (8000508 <winner_check+0x25c>)
+ 8000426:	699a      	ldr	r2, [r3, #24]
+ 8000428:	4b39      	ldr	r3, [pc, #228]	@ (8000510 <winner_check+0x264>)
+ 800042a:	681b      	ldr	r3, [r3, #0]
+        (player_board[3] == player_B && player_board[4] == player_B && player_board[5] == player_B) ||
+ 800042c:	429a      	cmp	r2, r3
+ 800042e:	d10b      	bne.n	8000448 <winner_check+0x19c>
+        (player_board[6] == player_B && player_board[7] == player_B && player_board[8] == player_B) ||
+ 8000430:	4b35      	ldr	r3, [pc, #212]	@ (8000508 <winner_check+0x25c>)
+ 8000432:	69da      	ldr	r2, [r3, #28]
+ 8000434:	4b36      	ldr	r3, [pc, #216]	@ (8000510 <winner_check+0x264>)
+ 8000436:	681b      	ldr	r3, [r3, #0]
+ 8000438:	429a      	cmp	r2, r3
+ 800043a:	d105      	bne.n	8000448 <winner_check+0x19c>
+ 800043c:	4b32      	ldr	r3, [pc, #200]	@ (8000508 <winner_check+0x25c>)
+ 800043e:	6a1a      	ldr	r2, [r3, #32]
+ 8000440:	4b33      	ldr	r3, [pc, #204]	@ (8000510 <winner_check+0x264>)
+ 8000442:	681b      	ldr	r3, [r3, #0]
+ 8000444:	429a      	cmp	r2, r3
+ 8000446:	d059      	beq.n	80004fc <winner_check+0x250>
+
+        (player_board[0] == player_B && player_board[3] == player_B && player_board[6] == player_B) ||
+ 8000448:	4b2f      	ldr	r3, [pc, #188]	@ (8000508 <winner_check+0x25c>)
+ 800044a:	681a      	ldr	r2, [r3, #0]
+ 800044c:	4b30      	ldr	r3, [pc, #192]	@ (8000510 <winner_check+0x264>)
+ 800044e:	681b      	ldr	r3, [r3, #0]
+        (player_board[6] == player_B && player_board[7] == player_B && player_board[8] == player_B) ||
+ 8000450:	429a      	cmp	r2, r3
+ 8000452:	d10b      	bne.n	800046c <winner_check+0x1c0>
+        (player_board[0] == player_B && player_board[3] == player_B && player_board[6] == player_B) ||
+ 8000454:	4b2c      	ldr	r3, [pc, #176]	@ (8000508 <winner_check+0x25c>)
+ 8000456:	68da      	ldr	r2, [r3, #12]
+ 8000458:	4b2d      	ldr	r3, [pc, #180]	@ (8000510 <winner_check+0x264>)
+ 800045a:	681b      	ldr	r3, [r3, #0]
+ 800045c:	429a      	cmp	r2, r3
+ 800045e:	d105      	bne.n	800046c <winner_check+0x1c0>
+ 8000460:	4b29      	ldr	r3, [pc, #164]	@ (8000508 <winner_check+0x25c>)
+ 8000462:	699a      	ldr	r2, [r3, #24]
+ 8000464:	4b2a      	ldr	r3, [pc, #168]	@ (8000510 <winner_check+0x264>)
+ 8000466:	681b      	ldr	r3, [r3, #0]
+ 8000468:	429a      	cmp	r2, r3
+ 800046a:	d047      	beq.n	80004fc <winner_check+0x250>
+        (player_board[1] == player_B && player_board[4] == player_B && player_board[7] == player_B) ||
+ 800046c:	4b26      	ldr	r3, [pc, #152]	@ (8000508 <winner_check+0x25c>)
+ 800046e:	685a      	ldr	r2, [r3, #4]
+ 8000470:	4b27      	ldr	r3, [pc, #156]	@ (8000510 <winner_check+0x264>)
+ 8000472:	681b      	ldr	r3, [r3, #0]
+        (player_board[0] == player_B && player_board[3] == player_B && player_board[6] == player_B) ||
+ 8000474:	429a      	cmp	r2, r3
+ 8000476:	d10b      	bne.n	8000490 <winner_check+0x1e4>
+        (player_board[1] == player_B && player_board[4] == player_B && player_board[7] == player_B) ||
+ 8000478:	4b23      	ldr	r3, [pc, #140]	@ (8000508 <winner_check+0x25c>)
+ 800047a:	691a      	ldr	r2, [r3, #16]
+ 800047c:	4b24      	ldr	r3, [pc, #144]	@ (8000510 <winner_check+0x264>)
+ 800047e:	681b      	ldr	r3, [r3, #0]
+ 8000480:	429a      	cmp	r2, r3
+ 8000482:	d105      	bne.n	8000490 <winner_check+0x1e4>
+ 8000484:	4b20      	ldr	r3, [pc, #128]	@ (8000508 <winner_check+0x25c>)
+ 8000486:	69da      	ldr	r2, [r3, #28]
+ 8000488:	4b21      	ldr	r3, [pc, #132]	@ (8000510 <winner_check+0x264>)
+ 800048a:	681b      	ldr	r3, [r3, #0]
+ 800048c:	429a      	cmp	r2, r3
+ 800048e:	d035      	beq.n	80004fc <winner_check+0x250>
+        (player_board[2] == player_B && player_board[5] == player_B && player_board[8] == player_B) ||
+ 8000490:	4b1d      	ldr	r3, [pc, #116]	@ (8000508 <winner_check+0x25c>)
+ 8000492:	689a      	ldr	r2, [r3, #8]
+ 8000494:	4b1e      	ldr	r3, [pc, #120]	@ (8000510 <winner_check+0x264>)
+ 8000496:	681b      	ldr	r3, [r3, #0]
+        (player_board[1] == player_B && player_board[4] == player_B && player_board[7] == player_B) ||
+ 8000498:	429a      	cmp	r2, r3
+ 800049a:	d10b      	bne.n	80004b4 <winner_check+0x208>
+        (player_board[2] == player_B && player_board[5] == player_B && player_board[8] == player_B) ||
+ 800049c:	4b1a      	ldr	r3, [pc, #104]	@ (8000508 <winner_check+0x25c>)
+ 800049e:	695a      	ldr	r2, [r3, #20]
+ 80004a0:	4b1b      	ldr	r3, [pc, #108]	@ (8000510 <winner_check+0x264>)
+ 80004a2:	681b      	ldr	r3, [r3, #0]
+ 80004a4:	429a      	cmp	r2, r3
+ 80004a6:	d105      	bne.n	80004b4 <winner_check+0x208>
+ 80004a8:	4b17      	ldr	r3, [pc, #92]	@ (8000508 <winner_check+0x25c>)
+ 80004aa:	6a1a      	ldr	r2, [r3, #32]
+ 80004ac:	4b18      	ldr	r3, [pc, #96]	@ (8000510 <winner_check+0x264>)
+ 80004ae:	681b      	ldr	r3, [r3, #0]
+ 80004b0:	429a      	cmp	r2, r3
+ 80004b2:	d023      	beq.n	80004fc <winner_check+0x250>
+
+        (player_board[0] == player_B && player_board[4] == player_B && player_board[8] == player_B) ||
+ 80004b4:	4b14      	ldr	r3, [pc, #80]	@ (8000508 <winner_check+0x25c>)
+ 80004b6:	681a      	ldr	r2, [r3, #0]
+ 80004b8:	4b15      	ldr	r3, [pc, #84]	@ (8000510 <winner_check+0x264>)
+ 80004ba:	681b      	ldr	r3, [r3, #0]
+        (player_board[2] == player_B && player_board[5] == player_B && player_board[8] == player_B) ||
+ 80004bc:	429a      	cmp	r2, r3
+ 80004be:	d10b      	bne.n	80004d8 <winner_check+0x22c>
+        (player_board[0] == player_B && player_board[4] == player_B && player_board[8] == player_B) ||
+ 80004c0:	4b11      	ldr	r3, [pc, #68]	@ (8000508 <winner_check+0x25c>)
+ 80004c2:	691a      	ldr	r2, [r3, #16]
+ 80004c4:	4b12      	ldr	r3, [pc, #72]	@ (8000510 <winner_check+0x264>)
+ 80004c6:	681b      	ldr	r3, [r3, #0]
+ 80004c8:	429a      	cmp	r2, r3
+ 80004ca:	d105      	bne.n	80004d8 <winner_check+0x22c>
+ 80004cc:	4b0e      	ldr	r3, [pc, #56]	@ (8000508 <winner_check+0x25c>)
+ 80004ce:	6a1a      	ldr	r2, [r3, #32]
+ 80004d0:	4b0f      	ldr	r3, [pc, #60]	@ (8000510 <winner_check+0x264>)
+ 80004d2:	681b      	ldr	r3, [r3, #0]
+ 80004d4:	429a      	cmp	r2, r3
+ 80004d6:	d011      	beq.n	80004fc <winner_check+0x250>
+        (player_board[2] == player_B && player_board[4] == player_B && player_board[6] == player_B)
+ 80004d8:	4b0b      	ldr	r3, [pc, #44]	@ (8000508 <winner_check+0x25c>)
+ 80004da:	689a      	ldr	r2, [r3, #8]
+ 80004dc:	4b0c      	ldr	r3, [pc, #48]	@ (8000510 <winner_check+0x264>)
+ 80004de:	681b      	ldr	r3, [r3, #0]
+        (player_board[0] == player_B && player_board[4] == player_B && player_board[8] == player_B) ||
+ 80004e0:	429a      	cmp	r2, r3
+ 80004e2:	d10d      	bne.n	8000500 <winner_check+0x254>
+        (player_board[2] == player_B && player_board[4] == player_B && player_board[6] == player_B)
+ 80004e4:	4b08      	ldr	r3, [pc, #32]	@ (8000508 <winner_check+0x25c>)
+ 80004e6:	691a      	ldr	r2, [r3, #16]
+ 80004e8:	4b09      	ldr	r3, [pc, #36]	@ (8000510 <winner_check+0x264>)
+ 80004ea:	681b      	ldr	r3, [r3, #0]
+ 80004ec:	429a      	cmp	r2, r3
+ 80004ee:	d107      	bne.n	8000500 <winner_check+0x254>
+ 80004f0:	4b05      	ldr	r3, [pc, #20]	@ (8000508 <winner_check+0x25c>)
+ 80004f2:	699a      	ldr	r2, [r3, #24]
+ 80004f4:	4b06      	ldr	r3, [pc, #24]	@ (8000510 <winner_check+0x264>)
+ 80004f6:	681b      	ldr	r3, [r3, #0]
+ 80004f8:	429a      	cmp	r2, r3
+ 80004fa:	d101      	bne.n	8000500 <winner_check+0x254>
+       )
+    {
+        return 2;
+ 80004fc:	2302      	movs	r3, #2
+ 80004fe:	e000      	b.n	8000502 <winner_check+0x256>
+    }
+
+    // No winner
+    return 0;
+ 8000500:	2300      	movs	r3, #0
+}
+ 8000502:	0018      	movs	r0, r3
+ 8000504:	46bd      	mov	sp, r7
+ 8000506:	bd80      	pop	{r7, pc}
+ 8000508:	20000080 	.word	0x20000080
+ 800050c:	20000004 	.word	0x20000004
+ 8000510:	20000008 	.word	0x20000008
+
+08000514 <delay_25ms>:
+// ----------------------------------------------------
+// 25 ms SysTick Delay
+// ----------------------------------------------------
+
+void delay_25ms(void)
+{
+ 8000514:	b580      	push	{r7, lr}
+ 8000516:	af00      	add	r7, sp, #0
+    // 25 ms at 16 MHz
+    STK_RVR = 400000 - 1;
+ 8000518:	4b0a      	ldr	r3, [pc, #40]	@ (8000544 <delay_25ms+0x30>)
+ 800051a:	4a0b      	ldr	r2, [pc, #44]	@ (8000548 <delay_25ms+0x34>)
+ 800051c:	601a      	str	r2, [r3, #0]
+
+    // Clear current value
+    STK_CVR = 0;
+ 800051e:	4b0b      	ldr	r3, [pc, #44]	@ (800054c <delay_25ms+0x38>)
+ 8000520:	2200      	movs	r2, #0
+ 8000522:	601a      	str	r2, [r3, #0]
+
+    // CLKSOURCE = HCLK
+    // ENABLE = 1
+    STK_CSR = (1 << 2) | (1 << 0);
+ 8000524:	4b0a      	ldr	r3, [pc, #40]	@ (8000550 <delay_25ms+0x3c>)
+ 8000526:	2205      	movs	r2, #5
+ 8000528:	601a      	str	r2, [r3, #0]
+
+    // Wait for COUNTFLAG
+    while ((STK_CSR & (1 << 16)) == 0)
+ 800052a:	46c0      	nop			@ (mov r8, r8)
+ 800052c:	4b08      	ldr	r3, [pc, #32]	@ (8000550 <delay_25ms+0x3c>)
+ 800052e:	681a      	ldr	r2, [r3, #0]
+ 8000530:	2380      	movs	r3, #128	@ 0x80
+ 8000532:	025b      	lsls	r3, r3, #9
+ 8000534:	4013      	ands	r3, r2
+ 8000536:	d0f9      	beq.n	800052c <delay_25ms+0x18>
+    {
+    }
+
+    // Stop SysTick
+    STK_CSR = 0;
+ 8000538:	4b05      	ldr	r3, [pc, #20]	@ (8000550 <delay_25ms+0x3c>)
+ 800053a:	2200      	movs	r2, #0
+ 800053c:	601a      	str	r2, [r3, #0]
+}
+ 800053e:	46c0      	nop			@ (mov r8, r8)
+ 8000540:	46bd      	mov	sp, r7
+ 8000542:	bd80      	pop	{r7, pc}
+ 8000544:	e000e014 	.word	0xe000e014
+ 8000548:	00061a7f 	.word	0x00061a7f
+ 800054c:	e000e018 	.word	0xe000e018
+ 8000550:	e000e010 	.word	0xe000e010
+
+08000554 <delay_2s>:
+// ----------------------------------------------------
+// 2 Second Delay
+// ----------------------------------------------------
+
+void delay_2s(void)
+{
+ 8000554:	b580      	push	{r7, lr}
+ 8000556:	b082      	sub	sp, #8
+ 8000558:	af00      	add	r7, sp, #0
+    // 80 x 25 ms = 2000 ms = 2 seconds
+    for (int i = 0; i < 80; i++)
+ 800055a:	2300      	movs	r3, #0
+ 800055c:	607b      	str	r3, [r7, #4]
+ 800055e:	e004      	b.n	800056a <delay_2s+0x16>
+    {
+        delay_25ms();
+ 8000560:	f7ff ffd8 	bl	8000514 <delay_25ms>
+    for (int i = 0; i < 80; i++)
+ 8000564:	687b      	ldr	r3, [r7, #4]
+ 8000566:	3301      	adds	r3, #1
+ 8000568:	607b      	str	r3, [r7, #4]
+ 800056a:	687b      	ldr	r3, [r7, #4]
+ 800056c:	2b4f      	cmp	r3, #79	@ 0x4f
+ 800056e:	ddf7      	ble.n	8000560 <delay_2s+0xc>
+    }
+}
+ 8000570:	46c0      	nop			@ (mov r8, r8)
+ 8000572:	46c0      	nop			@ (mov r8, r8)
+ 8000574:	46bd      	mov	sp, r7
+ 8000576:	b002      	add	sp, #8
+ 8000578:	bd80      	pop	{r7, pc}
+
+0800057a <wait_for_release>:
+// ----------------------------------------------------
+// Wait For Switch Release
+// ----------------------------------------------------
+
+void wait_for_release(void)
+{
+ 800057a:	b580      	push	{r7, lr}
+ 800057c:	af00      	add	r7, sp, #0
+    while (get_switch() != -1)
+ 800057e:	46c0      	nop			@ (mov r8, r8)
+ 8000580:	f7ff fdc0 	bl	8000104 <get_switch>
+ 8000584:	0003      	movs	r3, r0
+ 8000586:	3301      	adds	r3, #1
+ 8000588:	d1fa      	bne.n	8000580 <wait_for_release+0x6>
+    {
+    }
+
+    // Debounce after release
+    delay_25ms();
+ 800058a:	f7ff ffc3 	bl	8000514 <delay_25ms>
+}
+ 800058e:	46c0      	nop			@ (mov r8, r8)
+ 8000590:	46bd      	mov	sp, r7
+ 8000592:	bd80      	pop	{r7, pc}
+
+08000594 <main>:
+// ----------------------------------------------------
+// Main
+// ----------------------------------------------------
+
+int main(void)
+{
+ 8000594:	b580      	push	{r7, lr}
+ 8000596:	b084      	sub	sp, #16
+ 8000598:	af00      	add	r7, sp, #0
+    // Enable GPIOA
+    RCC_IOPENR |= (1 << 0);
+ 800059a:	4b7a      	ldr	r3, [pc, #488]	@ (8000784 <main+0x1f0>)
+ 800059c:	681a      	ldr	r2, [r3, #0]
+ 800059e:	4b79      	ldr	r3, [pc, #484]	@ (8000784 <main+0x1f0>)
+ 80005a0:	2101      	movs	r1, #1
+ 80005a2:	430a      	orrs	r2, r1
+ 80005a4:	601a      	str	r2, [r3, #0]
+
+    // Enable GPIOB
+    RCC_IOPENR |= (1 << 1);
+ 80005a6:	4b77      	ldr	r3, [pc, #476]	@ (8000784 <main+0x1f0>)
+ 80005a8:	681a      	ldr	r2, [r3, #0]
+ 80005aa:	4b76      	ldr	r3, [pc, #472]	@ (8000784 <main+0x1f0>)
+ 80005ac:	2102      	movs	r1, #2
+ 80005ae:	430a      	orrs	r2, r1
+ 80005b0:	601a      	str	r2, [r3, #0]
+    // ------------------------------------------------
+    // Configure PA4, PA1, PA0 as switch inputs
+    // ------------------------------------------------
+
+    // PA4 input
+    GPIOA_MODER &= ~(3 << (4 * 2));
+ 80005b2:	23a0      	movs	r3, #160	@ 0xa0
+ 80005b4:	05db      	lsls	r3, r3, #23
+ 80005b6:	681a      	ldr	r2, [r3, #0]
+ 80005b8:	23a0      	movs	r3, #160	@ 0xa0
+ 80005ba:	05db      	lsls	r3, r3, #23
+ 80005bc:	4972      	ldr	r1, [pc, #456]	@ (8000788 <main+0x1f4>)
+ 80005be:	400a      	ands	r2, r1
+ 80005c0:	601a      	str	r2, [r3, #0]
+
+    // PA1 input
+    GPIOA_MODER &= ~(3 << (1 * 2));
+ 80005c2:	23a0      	movs	r3, #160	@ 0xa0
+ 80005c4:	05db      	lsls	r3, r3, #23
+ 80005c6:	681a      	ldr	r2, [r3, #0]
+ 80005c8:	23a0      	movs	r3, #160	@ 0xa0
+ 80005ca:	05db      	lsls	r3, r3, #23
+ 80005cc:	210c      	movs	r1, #12
+ 80005ce:	438a      	bics	r2, r1
+ 80005d0:	601a      	str	r2, [r3, #0]
+
+    // PA0 input
+    GPIOA_MODER &= ~(3 << (0 * 2));
+ 80005d2:	23a0      	movs	r3, #160	@ 0xa0
+ 80005d4:	05db      	lsls	r3, r3, #23
+ 80005d6:	681a      	ldr	r2, [r3, #0]
+ 80005d8:	23a0      	movs	r3, #160	@ 0xa0
+ 80005da:	05db      	lsls	r3, r3, #23
+ 80005dc:	2103      	movs	r1, #3
+ 80005de:	438a      	bics	r2, r1
+ 80005e0:	601a      	str	r2, [r3, #0]
+    // ------------------------------------------------
+    // Enable pull-downs on PA4, PA1, PA0
+    // ------------------------------------------------
+
+    // PA4 pull-down
+    GPIOA_PUPDR &= ~(3 << (4 * 2));
+ 80005e2:	4b6a      	ldr	r3, [pc, #424]	@ (800078c <main+0x1f8>)
+ 80005e4:	681a      	ldr	r2, [r3, #0]
+ 80005e6:	4b69      	ldr	r3, [pc, #420]	@ (800078c <main+0x1f8>)
+ 80005e8:	4967      	ldr	r1, [pc, #412]	@ (8000788 <main+0x1f4>)
+ 80005ea:	400a      	ands	r2, r1
+ 80005ec:	601a      	str	r2, [r3, #0]
+    GPIOA_PUPDR |=  (2 << (4 * 2));
+ 80005ee:	4b67      	ldr	r3, [pc, #412]	@ (800078c <main+0x1f8>)
+ 80005f0:	681a      	ldr	r2, [r3, #0]
+ 80005f2:	4b66      	ldr	r3, [pc, #408]	@ (800078c <main+0x1f8>)
+ 80005f4:	2180      	movs	r1, #128	@ 0x80
+ 80005f6:	0089      	lsls	r1, r1, #2
+ 80005f8:	430a      	orrs	r2, r1
+ 80005fa:	601a      	str	r2, [r3, #0]
+
+    // PA1 pull-down
+    GPIOA_PUPDR &= ~(3 << (1 * 2));
+ 80005fc:	4b63      	ldr	r3, [pc, #396]	@ (800078c <main+0x1f8>)
+ 80005fe:	681a      	ldr	r2, [r3, #0]
+ 8000600:	4b62      	ldr	r3, [pc, #392]	@ (800078c <main+0x1f8>)
+ 8000602:	210c      	movs	r1, #12
+ 8000604:	438a      	bics	r2, r1
+ 8000606:	601a      	str	r2, [r3, #0]
+    GPIOA_PUPDR |=  (2 << (1 * 2));
+ 8000608:	4b60      	ldr	r3, [pc, #384]	@ (800078c <main+0x1f8>)
+ 800060a:	681a      	ldr	r2, [r3, #0]
+ 800060c:	4b5f      	ldr	r3, [pc, #380]	@ (800078c <main+0x1f8>)
+ 800060e:	2108      	movs	r1, #8
+ 8000610:	430a      	orrs	r2, r1
+ 8000612:	601a      	str	r2, [r3, #0]
+
+    // PA0 pull-down
+    GPIOA_PUPDR &= ~(3 << (0 * 2));
+ 8000614:	4b5d      	ldr	r3, [pc, #372]	@ (800078c <main+0x1f8>)
+ 8000616:	681a      	ldr	r2, [r3, #0]
+ 8000618:	4b5c      	ldr	r3, [pc, #368]	@ (800078c <main+0x1f8>)
+ 800061a:	2103      	movs	r1, #3
+ 800061c:	438a      	bics	r2, r1
+ 800061e:	601a      	str	r2, [r3, #0]
+    GPIOA_PUPDR |=  (2 << (0 * 2));
+ 8000620:	4b5a      	ldr	r3, [pc, #360]	@ (800078c <main+0x1f8>)
+ 8000622:	681a      	ldr	r2, [r3, #0]
+ 8000624:	4b59      	ldr	r3, [pc, #356]	@ (800078c <main+0x1f8>)
+ 8000626:	2102      	movs	r1, #2
+ 8000628:	430a      	orrs	r2, r1
+ 800062a:	601a      	str	r2, [r3, #0]
+
+
+    // Start with an empty board
+    reset();
+ 800062c:	f7ff fe1c 	bl	8000268 <reset>
+
+
+    while (game_on)
+ 8000630:	e09e      	b.n	8000770 <main+0x1dc>
+        // Switch 1 = Row 0
+        // Switch 2 = Row 1
+        // Switch 3 = Row 2
+        // ====================================================
+
+        row = -1;
+ 8000632:	4b57      	ldr	r3, [pc, #348]	@ (8000790 <main+0x1fc>)
+ 8000634:	2201      	movs	r2, #1
+ 8000636:	4252      	negs	r2, r2
+ 8000638:	601a      	str	r2, [r3, #0]
+
+        while (row == -1)
+ 800063a:	e004      	b.n	8000646 <main+0xb2>
+        {
+            row = get_switch();
+ 800063c:	f7ff fd62 	bl	8000104 <get_switch>
+ 8000640:	0002      	movs	r2, r0
+ 8000642:	4b53      	ldr	r3, [pc, #332]	@ (8000790 <main+0x1fc>)
+ 8000644:	601a      	str	r2, [r3, #0]
+        while (row == -1)
+ 8000646:	4b52      	ldr	r3, [pc, #328]	@ (8000790 <main+0x1fc>)
+ 8000648:	681b      	ldr	r3, [r3, #0]
+ 800064a:	3301      	adds	r3, #1
+ 800064c:	d0f6      	beq.n	800063c <main+0xa8>
+        }
+
+        wait_for_release();
+ 800064e:	f7ff ff94 	bl	800057a <wait_for_release>
+        // Switch 1 = Column 0
+        // Switch 2 = Column 1
+        // Switch 3 = Column 2
+        // ====================================================
+
+        column = -1;
+ 8000652:	4b50      	ldr	r3, [pc, #320]	@ (8000794 <main+0x200>)
+ 8000654:	2201      	movs	r2, #1
+ 8000656:	4252      	negs	r2, r2
+ 8000658:	601a      	str	r2, [r3, #0]
+
+        while (column == -1)
+ 800065a:	e004      	b.n	8000666 <main+0xd2>
+        {
+            column = get_switch();
+ 800065c:	f7ff fd52 	bl	8000104 <get_switch>
+ 8000660:	0002      	movs	r2, r0
+ 8000662:	4b4c      	ldr	r3, [pc, #304]	@ (8000794 <main+0x200>)
+ 8000664:	601a      	str	r2, [r3, #0]
+        while (column == -1)
+ 8000666:	4b4b      	ldr	r3, [pc, #300]	@ (8000794 <main+0x200>)
+ 8000668:	681b      	ldr	r3, [r3, #0]
+ 800066a:	3301      	adds	r3, #1
+ 800066c:	d0f6      	beq.n	800065c <main+0xc8>
+        }
+
+        wait_for_release();
+ 800066e:	f7ff ff84 	bl	800057a <wait_for_release>
+
+
+        // Convert selected row and column into board position
+        position = row * 3 + column;
+ 8000672:	4b47      	ldr	r3, [pc, #284]	@ (8000790 <main+0x1fc>)
+ 8000674:	681a      	ldr	r2, [r3, #0]
+ 8000676:	0013      	movs	r3, r2
+ 8000678:	005b      	lsls	r3, r3, #1
+ 800067a:	189a      	adds	r2, r3, r2
+ 800067c:	4b45      	ldr	r3, [pc, #276]	@ (8000794 <main+0x200>)
+ 800067e:	681b      	ldr	r3, [r3, #0]
+ 8000680:	18d2      	adds	r2, r2, r3
+ 8000682:	4b45      	ldr	r3, [pc, #276]	@ (8000798 <main+0x204>)
+ 8000684:	601a      	str	r2, [r3, #0]
+
+        wait_for_release();
+ 8000686:	f7ff ff78 	bl	800057a <wait_for_release>
+
+        // ----------------------------------------------------
+        // Place Token
+        // ----------------------------------------------------
+
+        if (player_board[position] == 0)
+ 800068a:	4b43      	ldr	r3, [pc, #268]	@ (8000798 <main+0x204>)
+ 800068c:	681a      	ldr	r2, [r3, #0]
+ 800068e:	4b43      	ldr	r3, [pc, #268]	@ (800079c <main+0x208>)
+ 8000690:	0092      	lsls	r2, r2, #2
+ 8000692:	58d3      	ldr	r3, [r2, r3]
+ 8000694:	2b00      	cmp	r3, #0
+ 8000696:	d115      	bne.n	80006c4 <main+0x130>
+        {
+            player_board[position] = current_player;
+ 8000698:	4b3f      	ldr	r3, [pc, #252]	@ (8000798 <main+0x204>)
+ 800069a:	681a      	ldr	r2, [r3, #0]
+ 800069c:	4b40      	ldr	r3, [pc, #256]	@ (80007a0 <main+0x20c>)
+ 800069e:	6819      	ldr	r1, [r3, #0]
+ 80006a0:	4b3e      	ldr	r3, [pc, #248]	@ (800079c <main+0x208>)
+ 80006a2:	0092      	lsls	r2, r2, #2
+ 80006a4:	50d1      	str	r1, [r2, r3]
+
+
+            // Change players
+            if (current_player == player_A)
+ 80006a6:	4b3e      	ldr	r3, [pc, #248]	@ (80007a0 <main+0x20c>)
+ 80006a8:	681a      	ldr	r2, [r3, #0]
+ 80006aa:	4b3e      	ldr	r3, [pc, #248]	@ (80007a4 <main+0x210>)
+ 80006ac:	681b      	ldr	r3, [r3, #0]
+ 80006ae:	429a      	cmp	r2, r3
+ 80006b0:	d104      	bne.n	80006bc <main+0x128>
+            {
+                current_player = player_B;
+ 80006b2:	4b3d      	ldr	r3, [pc, #244]	@ (80007a8 <main+0x214>)
+ 80006b4:	681a      	ldr	r2, [r3, #0]
+ 80006b6:	4b3a      	ldr	r3, [pc, #232]	@ (80007a0 <main+0x20c>)
+ 80006b8:	601a      	str	r2, [r3, #0]
+ 80006ba:	e003      	b.n	80006c4 <main+0x130>
+            }
+            else
+            {
+                current_player = player_A;
+ 80006bc:	4b39      	ldr	r3, [pc, #228]	@ (80007a4 <main+0x210>)
+ 80006be:	681a      	ldr	r2, [r3, #0]
+ 80006c0:	4b37      	ldr	r3, [pc, #220]	@ (80007a0 <main+0x20c>)
+ 80006c2:	601a      	str	r2, [r3, #0]
+        // ----------------------------------------------------
+        // Update BEFORE checking winner/draw so final move
+        // turns on before the game resets.
+        // ----------------------------------------------------
+
+        for (int i = 0; i < 9; i++)
+ 80006c4:	2300      	movs	r3, #0
+ 80006c6:	60fb      	str	r3, [r7, #12]
+ 80006c8:	e021      	b.n	800070e <main+0x17a>
+        {
+            if (player_board[i] == player_A)
+ 80006ca:	4b34      	ldr	r3, [pc, #208]	@ (800079c <main+0x208>)
+ 80006cc:	68fa      	ldr	r2, [r7, #12]
+ 80006ce:	0092      	lsls	r2, r2, #2
+ 80006d0:	58d2      	ldr	r2, [r2, r3]
+ 80006d2:	4b34      	ldr	r3, [pc, #208]	@ (80007a4 <main+0x210>)
+ 80006d4:	681b      	ldr	r3, [r3, #0]
+ 80006d6:	429a      	cmp	r2, r3
+ 80006d8:	d107      	bne.n	80006ea <main+0x156>
+            {
+                turnA(portA_board[i]);
+ 80006da:	4b34      	ldr	r3, [pc, #208]	@ (80007ac <main+0x218>)
+ 80006dc:	68fa      	ldr	r2, [r7, #12]
+ 80006de:	0092      	lsls	r2, r2, #2
+ 80006e0:	58d3      	ldr	r3, [r2, r3]
+ 80006e2:	0018      	movs	r0, r3
+ 80006e4:	f7ff fd2c 	bl	8000140 <turnA>
+ 80006e8:	e00e      	b.n	8000708 <main+0x174>
+            }
+            else if (player_board[i] == player_B)
+ 80006ea:	4b2c      	ldr	r3, [pc, #176]	@ (800079c <main+0x208>)
+ 80006ec:	68fa      	ldr	r2, [r7, #12]
+ 80006ee:	0092      	lsls	r2, r2, #2
+ 80006f0:	58d2      	ldr	r2, [r2, r3]
+ 80006f2:	4b2d      	ldr	r3, [pc, #180]	@ (80007a8 <main+0x214>)
+ 80006f4:	681b      	ldr	r3, [r3, #0]
+ 80006f6:	429a      	cmp	r2, r3
+ 80006f8:	d106      	bne.n	8000708 <main+0x174>
+            {
+                turnB(portB_board[i]);
+ 80006fa:	4b2d      	ldr	r3, [pc, #180]	@ (80007b0 <main+0x21c>)
+ 80006fc:	68fa      	ldr	r2, [r7, #12]
+ 80006fe:	0092      	lsls	r2, r2, #2
+ 8000700:	58d3      	ldr	r3, [r2, r3]
+ 8000702:	0018      	movs	r0, r3
+ 8000704:	f7ff fd4c 	bl	80001a0 <turnB>
+        for (int i = 0; i < 9; i++)
+ 8000708:	68fb      	ldr	r3, [r7, #12]
+ 800070a:	3301      	adds	r3, #1
+ 800070c:	60fb      	str	r3, [r7, #12]
+ 800070e:	68fb      	ldr	r3, [r7, #12]
+ 8000710:	2b08      	cmp	r3, #8
+ 8000712:	ddda      	ble.n	80006ca <main+0x136>
+
+        // ----------------------------------------------------
+        // Check for Winner
+        // ----------------------------------------------------
+
+        int result = winner_check();
+ 8000714:	f7ff fdca 	bl	80002ac <winner_check>
+ 8000718:	0003      	movs	r3, r0
+ 800071a:	603b      	str	r3, [r7, #0]
+
+        if (result == 1)
+ 800071c:	683b      	ldr	r3, [r7, #0]
+ 800071e:	2b01      	cmp	r3, #1
+ 8000720:	d104      	bne.n	800072c <main+0x198>
+        {
+            // Player A wins
+
+            // Keep winning board visible for 2 seconds
+            delay_2s();
+ 8000722:	f7ff ff17 	bl	8000554 <delay_2s>
+
+            // Start new game
+            reset();
+ 8000726:	f7ff fd9f 	bl	8000268 <reset>
+ 800072a:	e021      	b.n	8000770 <main+0x1dc>
+        }
+        else if (result == 2)
+ 800072c:	683b      	ldr	r3, [r7, #0]
+ 800072e:	2b02      	cmp	r3, #2
+ 8000730:	d104      	bne.n	800073c <main+0x1a8>
+        {
+            // Player B wins
+
+            // Keep winning board visible for 2 seconds
+            delay_2s();
+ 8000732:	f7ff ff0f 	bl	8000554 <delay_2s>
+
+            // Start new game
+            reset();
+ 8000736:	f7ff fd97 	bl	8000268 <reset>
+ 800073a:	e019      	b.n	8000770 <main+0x1dc>
+        {
+            // ------------------------------------------------
+            // Check if board is full
+            // ------------------------------------------------
+
+            int full = 1;
+ 800073c:	2301      	movs	r3, #1
+ 800073e:	60bb      	str	r3, [r7, #8]
+
+            for (int i = 0; i < 9; i++)
+ 8000740:	2300      	movs	r3, #0
+ 8000742:	607b      	str	r3, [r7, #4]
+ 8000744:	e00a      	b.n	800075c <main+0x1c8>
+            {
+                if (player_board[i] == 0)
+ 8000746:	4b15      	ldr	r3, [pc, #84]	@ (800079c <main+0x208>)
+ 8000748:	687a      	ldr	r2, [r7, #4]
+ 800074a:	0092      	lsls	r2, r2, #2
+ 800074c:	58d3      	ldr	r3, [r2, r3]
+ 800074e:	2b00      	cmp	r3, #0
+ 8000750:	d101      	bne.n	8000756 <main+0x1c2>
+                {
+                    full = 0;
+ 8000752:	2300      	movs	r3, #0
+ 8000754:	60bb      	str	r3, [r7, #8]
+            for (int i = 0; i < 9; i++)
+ 8000756:	687b      	ldr	r3, [r7, #4]
+ 8000758:	3301      	adds	r3, #1
+ 800075a:	607b      	str	r3, [r7, #4]
+ 800075c:	687b      	ldr	r3, [r7, #4]
+ 800075e:	2b08      	cmp	r3, #8
+ 8000760:	ddf1      	ble.n	8000746 <main+0x1b2>
+                }
+            }
+
+            if (full == 1)
+ 8000762:	68bb      	ldr	r3, [r7, #8]
+ 8000764:	2b01      	cmp	r3, #1
+ 8000766:	d103      	bne.n	8000770 <main+0x1dc>
+            {
+                // Draw
+
+                // Keep completed board visible for 2 seconds
+                delay_2s();
+ 8000768:	f7ff fef4 	bl	8000554 <delay_2s>
+
+                // Start new game
+                reset();
+ 800076c:	f7ff fd7c 	bl	8000268 <reset>
+    while (game_on)
+ 8000770:	4b10      	ldr	r3, [pc, #64]	@ (80007b4 <main+0x220>)
+ 8000772:	681b      	ldr	r3, [r3, #0]
+ 8000774:	2b00      	cmp	r3, #0
+ 8000776:	d000      	beq.n	800077a <main+0x1e6>
+ 8000778:	e75b      	b.n	8000632 <main+0x9e>
+            }
+        }
+    }
+
+
+    return 0;
+ 800077a:	2300      	movs	r3, #0
+}
+ 800077c:	0018      	movs	r0, r3
+ 800077e:	46bd      	mov	sp, r7
+ 8000780:	b004      	add	sp, #16
+ 8000782:	bd80      	pop	{r7, pc}
+ 8000784:	40021034 	.word	0x40021034
+ 8000788:	fffffcff 	.word	0xfffffcff
+ 800078c:	5000000c 	.word	0x5000000c
+ 8000790:	20000074 	.word	0x20000074
+ 8000794:	20000078 	.word	0x20000078
+ 8000798:	2000007c 	.word	0x2000007c
+ 800079c:	20000080 	.word	0x20000080
+ 80007a0:	2000000c 	.word	0x2000000c
+ 80007a4:	20000004 	.word	0x20000004
+ 80007a8:	20000008 	.word	0x20000008
+ 80007ac:	20000010 	.word	0x20000010
+ 80007b0:	20000034 	.word	0x20000034
+ 80007b4:	20000000 	.word	0x20000000
+
+080007b8 <Reset_Handler>:
+
+  .section .text.Reset_Handler
+  .weak Reset_Handler
+  .type Reset_Handler, %function
+Reset_Handler:
+  ldr   r0, =_estack
+ 80007b8:	480d      	ldr	r0, [pc, #52]	@ (80007f0 <LoopForever+0x2>)
+  mov   sp, r0          /* set stack pointer */
+ 80007ba:	4685      	mov	sp, r0
+/* Call the clock system initialization function.*/
+  bl  SystemInit
+ 80007bc:	e000      	b.n	80007c0 <Reset_Handler+0x8>
+ 80007be:	bf00      	nop
+
+/* Copy the data segment initializers from flash to SRAM */
+  ldr r0, =_sdata
+ 80007c0:	480c      	ldr	r0, [pc, #48]	@ (80007f4 <LoopForever+0x6>)
+  ldr r1, =_edata
+ 80007c2:	490d      	ldr	r1, [pc, #52]	@ (80007f8 <LoopForever+0xa>)
+  ldr r2, =_sidata
+ 80007c4:	4a0d      	ldr	r2, [pc, #52]	@ (80007fc <LoopForever+0xe>)
+  movs r3, #0
+ 80007c6:	2300      	movs	r3, #0
+  b LoopCopyDataInit
+ 80007c8:	e002      	b.n	80007d0 <LoopCopyDataInit>
+
+080007ca <CopyDataInit>:
+
+CopyDataInit:
+  ldr r4, [r2, r3]
+ 80007ca:	58d4      	ldr	r4, [r2, r3]
+  str r4, [r0, r3]
+ 80007cc:	50c4      	str	r4, [r0, r3]
+  adds r3, r3, #4
+ 80007ce:	3304      	adds	r3, #4
+
+080007d0 <LoopCopyDataInit>:
+
+LoopCopyDataInit:
+  adds r4, r0, r3
+ 80007d0:	18c4      	adds	r4, r0, r3
+  cmp r4, r1
+ 80007d2:	428c      	cmp	r4, r1
+  bcc CopyDataInit
+ 80007d4:	d3f9      	bcc.n	80007ca <CopyDataInit>
+
+/* Zero fill the bss segment. */
+  ldr r2, =_sbss
+ 80007d6:	4a0a      	ldr	r2, [pc, #40]	@ (8000800 <LoopForever+0x12>)
+  ldr r4, =_ebss
+ 80007d8:	4c0a      	ldr	r4, [pc, #40]	@ (8000804 <LoopForever+0x16>)
+  movs r3, #0
+ 80007da:	2300      	movs	r3, #0
+  b LoopFillZerobss
+ 80007dc:	e001      	b.n	80007e2 <LoopFillZerobss>
+
+080007de <FillZerobss>:
+
+FillZerobss:
+  str  r3, [r2]
+ 80007de:	6013      	str	r3, [r2, #0]
+  adds r2, r2, #4
+ 80007e0:	3204      	adds	r2, #4
+
+080007e2 <LoopFillZerobss>:
+
+LoopFillZerobss:
+  cmp r2, r4
+ 80007e2:	42a2      	cmp	r2, r4
+  bcc FillZerobss
+ 80007e4:	d3fb      	bcc.n	80007de <FillZerobss>
+
+/* Call static constructors */
+  bl __libc_init_array
+ 80007e6:	f000 f811 	bl	800080c <__libc_init_array>
+/* Call the application's entry point.*/
+  bl main
+ 80007ea:	f7ff fed3 	bl	8000594 <main>
+
+080007ee <LoopForever>:
+
+LoopForever:
+  b LoopForever
+ 80007ee:	e7fe      	b.n	80007ee <LoopForever>
+  ldr   r0, =_estack
+ 80007f0:	20002000 	.word	0x20002000
+  ldr r0, =_sdata
+ 80007f4:	20000000 	.word	0x20000000
+  ldr r1, =_edata
+ 80007f8:	20000058 	.word	0x20000058
+  ldr r2, =_sidata
+ 80007fc:	08000874 	.word	0x08000874
+  ldr r2, =_sbss
+ 8000800:	20000058 	.word	0x20000058
+  ldr r4, =_ebss
+ 8000804:	200000a4 	.word	0x200000a4
+
+08000808 <ADC_COMP_IRQHandler>:
+ * @retval : None
+*/
+  .section .text.Default_Handler,"ax",%progbits
+Default_Handler:
+Infinite_Loop:
+  b Infinite_Loop
+ 8000808:	e7fe      	b.n	8000808 <ADC_COMP_IRQHandler>
+	...
+
+0800080c <__libc_init_array>:
+ 800080c:	b570      	push	{r4, r5, r6, lr}
+ 800080e:	2600      	movs	r6, #0
+ 8000810:	4c0c      	ldr	r4, [pc, #48]	@ (8000844 <__libc_init_array+0x38>)
+ 8000812:	4d0d      	ldr	r5, [pc, #52]	@ (8000848 <__libc_init_array+0x3c>)
+ 8000814:	1b64      	subs	r4, r4, r5
+ 8000816:	10a4      	asrs	r4, r4, #2
+ 8000818:	42a6      	cmp	r6, r4
+ 800081a:	d109      	bne.n	8000830 <__libc_init_array+0x24>
+ 800081c:	2600      	movs	r6, #0
+ 800081e:	f000 f819 	bl	8000854 <_init>
+ 8000822:	4c0a      	ldr	r4, [pc, #40]	@ (800084c <__libc_init_array+0x40>)
+ 8000824:	4d0a      	ldr	r5, [pc, #40]	@ (8000850 <__libc_init_array+0x44>)
+ 8000826:	1b64      	subs	r4, r4, r5
+ 8000828:	10a4      	asrs	r4, r4, #2
+ 800082a:	42a6      	cmp	r6, r4
+ 800082c:	d105      	bne.n	800083a <__libc_init_array+0x2e>
+ 800082e:	bd70      	pop	{r4, r5, r6, pc}
+ 8000830:	00b3      	lsls	r3, r6, #2
+ 8000832:	58eb      	ldr	r3, [r5, r3]
+ 8000834:	4798      	blx	r3
+ 8000836:	3601      	adds	r6, #1
+ 8000838:	e7ee      	b.n	8000818 <__libc_init_array+0xc>
+ 800083a:	00b3      	lsls	r3, r6, #2
+ 800083c:	58eb      	ldr	r3, [r5, r3]
+ 800083e:	4798      	blx	r3
+ 8000840:	3601      	adds	r6, #1
+ 8000842:	e7f2      	b.n	800082a <__libc_init_array+0x1e>
+ 8000844:	0800086c 	.word	0x0800086c
+ 8000848:	0800086c 	.word	0x0800086c
+ 800084c:	08000870 	.word	0x08000870
+ 8000850:	0800086c 	.word	0x0800086c
+
+08000854 <_init>:
+ 8000854:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8000856:	46c0      	nop			@ (mov r8, r8)
+ 8000858:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 800085a:	bc08      	pop	{r3}
+ 800085c:	469e      	mov	lr, r3
+ 800085e:	4770      	bx	lr
+
+08000860 <_fini>:
+ 8000860:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8000862:	46c0      	nop			@ (mov r8, r8)
+ 8000864:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 8000866:	bc08      	pop	{r3}
+ 8000868:	469e      	mov	lr, r3
+ 800086a:	4770      	bx	lr
